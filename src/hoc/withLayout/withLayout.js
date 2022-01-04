@@ -1,12 +1,14 @@
 import React from "react";
 import "./withLayout.css";
+import Navbar from "../../components/Navbar";
 
 function withLayout(WrappedComponent) {
   function WrapperComponent({ ...props }) {
     return (
       <>
-        <main className="flex h-screen flex-wrap">
-          <WrappedComponent/>
+        <Navbar />
+        <main className="flex flex-wrap justify-center items-center">
+          <WrappedComponent />
         </main>
       </>
     );
