@@ -20,17 +20,17 @@ if (!firebase.apps.length) {
 
 export const auth = firebase.auth();
 
-export function singInWithGoogle() {
+export function signInWithGoogle() {
   const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
   return auth.signInWithPopup(GoogleAuthProvider);
 }
 
-export function singInWithEmailAndPassword(email, password) {
+export function signInWithEmailAndPassword(email, password) {
   return auth.signInWithEmailAndPassword(email, password);
 }
 
-export function singUpWithEmailAndPassword(email, password) {
+export function signUpWithEmailAndPassword(email, password) {
   return auth.createUserWithEmailAndPassword(email, password);
 }
 

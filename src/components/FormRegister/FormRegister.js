@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import { signUpWithEmailAndPassword } from "../../firebase/firebase";
+
+import { useAuth } from "../../context/authContext/reducer";
+import { syncUserData } from "../../utils/auth-request";
 
 function FormRegister() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const { signUpEmailAndPass, signUpError, signUpSuccess, errorMessage } =
+    useAuth();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    try {
+      const res = await signUpWithEmailAndPassword(email, password);
+      signUpEmailAndPass(res);
+      await syncUserData(firstName, lastName);
+      signUpSuccess(res);
+    } catch (err) {
+      signUpError(err.message);
+    }
+  }
   return (
     <>
-    <div className="hidden sm:block" aria-hidden="true">
+      <div className="hidden sm:block" aria-hidden="true">
         <div className="py-5">
           <div className="border-t border-gray-200" />
         </div>
@@ -21,7 +44,7 @@ function FormRegister() {
             </div>
           </div>
           <div className="mt-5 md:mt-0 md:col-span-2">
-            <form action="#" method="POST">
+            <form action="#" method="POST" onSubmit={handleSubmit}>
               <div className="shadow overflow-hidden sm:rounded-md">
                 <div className="px-4 py-5 bg-white sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
@@ -38,6 +61,8 @@ function FormRegister() {
                         id="first-name"
                         autoComplete="given-name"
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
                       />
                     </div>
 
@@ -54,6 +79,8 @@ function FormRegister() {
                         id="last-name"
                         autoComplete="family-name"
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
                       />
                     </div>
 
@@ -70,6 +97,8 @@ function FormRegister() {
                         id="email-address"
                         autoComplete="email"
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
 
@@ -85,6 +114,8 @@ function FormRegister() {
                         name="password"
                         id="password"
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </div>
 
@@ -114,6 +145,7 @@ function FormRegister() {
                 </div>
               </div>
             </form>
+            {errorMessage ? <div>{errorMessage}</div> : null}
           </div>
         </div>
       </div>
