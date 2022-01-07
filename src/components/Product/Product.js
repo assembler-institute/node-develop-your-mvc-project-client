@@ -1,39 +1,42 @@
 import React from "react";
 
-function Product() {
+function Product({ id, title, price, category, image }) {
   return (
     <>
       <article className="overflow-hidden rounded-lg shadow-lg">
-        <a href="#">
-          <img
-            alt="Placeholder"
-            className="block h-auto w-full"
-            src="https://picsum.photos/600/400/?random"
-          />
-        </a>
-
-        <header className="flex items-center justify-between leading-tight p-2 md:p-4">
-          <h1 className="text-lg">
-            <a className="no-underline hover:underline text-black" href="#">
-              Article Title
-            </a>
-          </h1>
-          <p className="text-grey-darker text-sm">14/4/19</p>
-        </header>
-
-        <footer className="flex items-center justify-between leading-none p-2 md:p-4">
-          <a
-            className="flex items-center no-underline hover:underline text-black"
-            href="#"
-          >
+        <div>
+          <a href="/">
             <img
               alt="Placeholder"
-              className="block rounded-full"
-              src="https://picsum.photos/32/32/?random"
+              className="block h-auto w-full object-contain max-h-60"
+              src={image}
             />
-            <p className="ml-2 text-sm">Author Name</p>
           </a>
-          <a className="no-underline text-grey-darker hover:text-red-dark" href="#">
+        </div>
+        <header className="flex items-center justify-between leading-tight p-2 md:p-4 w-full">
+          <h1 className="text-md">
+            <a className="no-underline hover:underline text-black" href="/">
+              {title}
+            </a>
+          </h1>
+          <p className="text-grey-darker text-sm text-black-400 font-bold w-28 text-right">
+            {price} €
+          </p>
+        </header>
+
+        <footer className="flex items-center justify-between leading-none p-2 md:p-4 w-full">
+          <a
+            className="flex items-center no-underline hover:underline text-black"
+            href="/"
+          >
+            <p className="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-blue-600 rounded-full">
+              {category}
+            </p>
+          </a>
+          <a
+            className="no-underline text-grey-darker hover:text-red-dark"
+            href="/"
+          >
             <span className="hidden">Like</span>
             <i className="fa fa-heart"></i>
           </a>
