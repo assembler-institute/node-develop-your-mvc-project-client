@@ -1,6 +1,6 @@
 import React from "react";
 
-function Product({ id, title, price, category, image }) {
+function Product({ title, price, category, image }) {
   return (
     <>
       <article className="overflow-hidden rounded-lg shadow-lg">

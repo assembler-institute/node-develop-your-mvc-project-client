@@ -7,6 +7,7 @@ function ProductListing() {
 
   useEffect(() => {
     fetchAllProducts();
+    console.log(products)
   }, []);
 
   return (
@@ -14,10 +15,10 @@ function ProductListing() {
       <div className="container my-12 mx-auto px-4 md:px-12">
         <div className="flex flex-wrap -mx-1 lg:-mx-4">
           {products.data
-            ? products.data.map((product) => (
+            ? products.data.map((product,index) => (
                 <div
                   className="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3"
-                  key={product._id}
+                  key={index}
                 >
                   <Product
                     id={product._id}

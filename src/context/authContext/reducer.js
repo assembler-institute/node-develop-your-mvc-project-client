@@ -85,6 +85,13 @@ export function AuthProvider({ children }) {
       dispatch({ type: actionTypes.SIGN_UP_SUCCESS, payload: newUser }),
     signUpError: (err) =>
       dispatch({ type: actionTypes.SIGN_UP_ERROR, payload: err }),
+    signInEmailAndPass: (userData) =>
+      dispatch({ type: actionTypes.SIGN_UP_EMAIL_AND_PASS, payload: userData }),
+    signInSuccess: (user) =>
+      dispatch({ type: actionTypes.SIGN_IN_SUCCESS, payload: user }),
+    signInError: (err) =>
+      dispatch({ type: actionTypes.SIGN_IN_ERROR, payload: err }),
+    signOutProvider: () => dispatch({ type: actionTypes.SIGN_OUT }),
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

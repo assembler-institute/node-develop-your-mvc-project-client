@@ -55,7 +55,7 @@ function FormRegister() {
                       >
                         First name
                       </label>
-                      <input
+               {/*        <input
                         type="text"
                         name="first-name"
                         id="first-name"
@@ -63,7 +63,16 @@ function FormRegister() {
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                      />
+                      /> */}
+                      <input
+                        type="text"
+                        name="first-name"
+                        id="first-name"
+                        autoComplete="given-name"
+                        className="appearance-none rounded relative block w-full px-3 py-1 border mt-2 border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                      ></input>
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
@@ -78,7 +87,7 @@ function FormRegister() {
                         name="last-name"
                         id="last-name"
                         autoComplete="family-name"
-                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        className="appearance-none rounded relative block w-full mt-2 px-3 py-1 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                       />
@@ -96,7 +105,7 @@ function FormRegister() {
                         name="email-address"
                         id="email-address"
                         autoComplete="email"
-                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        className="appearance-none rounded relative block w-full mt-2 px-3 py-1 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
@@ -113,7 +122,7 @@ function FormRegister() {
                         type="password"
                         name="password"
                         id="password"
-                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        className="appearance-none rounded relative block w-full mt-2 px-3 py-1 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                       />
@@ -130,8 +139,15 @@ function FormRegister() {
                         type="password"
                         name="password2"
                         id="password2"
-                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        className="appearance-none rounded relative block w-full mt-2 px-3 py-1 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                       />
+                    </div>
+                    <div className="col-span-12 sm:col-span-6">
+                      {errorMessage && (
+                        <p className="text-red-500 text-xs italic">
+                          {errorMessage}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -145,7 +161,6 @@ function FormRegister() {
                 </div>
               </div>
             </form>
-            {errorMessage ? <div>{errorMessage}</div> : null}
           </div>
         </div>
       </div>
