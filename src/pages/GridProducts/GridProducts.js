@@ -1,4 +1,5 @@
 import React from "react";
+import Pagination from "../../components/Pagination";
 import ProductListing from "../../components/ProductListing";
 import withLayout from "../../hoc/withLayout";
 
@@ -6,6 +7,7 @@ function GridProducts() {
   return (
     <>
       <ProductListing />
+      <Pagination />
     </>
   );
 }
