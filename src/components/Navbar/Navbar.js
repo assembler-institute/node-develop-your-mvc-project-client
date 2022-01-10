@@ -6,12 +6,12 @@ import { useAuth } from "../../context/authContext/reducer";
 import { signOut } from "../../firebase/firebase";
 
 export default function Navbar() {
-  const { currentUser,signOutProvider } = useAuth();
+  const { isAuth, currentUserData, signOutProvider } = useAuth();
 
-async function handleSignOut(){
-  await signOut();
-  signOutProvider();
-}
+  async function handleSignOut() {
+    await signOut();
+    signOutProvider();
+  }
 
   return (
     <>
@@ -45,22 +45,26 @@ async function handleSignOut(){
               </Link>
             </Popover.Group>
             <div className="hidden md:flex items-center justify-end md:flex-1">
-              {currentUser ? (
+              {isAuth ? (
                 <>
-                <img className="inline object-cover w-12 h-12 mr-2 rounded-full" src="https://images.pexels.com/photos/2589653/pexels-photo-2589653.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Profile image"/>
-                 <Link
+                  <img
+                    className="inline object-cover w-12 h-12 mr-2 rounded-full"
+                    src="https://images.pexels.com/photos/2589653/pexels-photo-2589653.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+                    alt="Profile image"
+                  />
+                  <Link
                     to="/profile"
                     className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
                   >
-                    {currentUser.name}
+                    {currentUserData.name}
                   </Link>
-                <button
-                  to="/signout"
-                  className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-                  onClick={handleSignOut}
-                >
-                  Sign Out
-                </button>
+                  <button
+                    to="/signout"
+                    className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                    onClick={handleSignOut}
+                  >
+                    Sign Out
+                  </button>
                 </>
               ) : (
                 <>

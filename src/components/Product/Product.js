@@ -1,6 +1,6 @@
 import React from "react";
 
-function Product({ title, price, category, image }) {
+function Product({ title, price, category, image, id }) {
   return (
     <>
       <article className="overflow-hidden rounded-lg shadow-lg">
@@ -15,7 +15,10 @@ function Product({ title, price, category, image }) {
         </div>
         <header className="flex items-center justify-between leading-tight p-2 md:p-4 w-full">
           <h1 className="text-md">
-            <a className="no-underline hover:underline text-black" href="/">
+            <a
+              className="no-underline hover:underline text-black"
+              href={`/${id}`}
+            >
               {title}
             </a>
           </h1>

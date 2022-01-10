@@ -18,7 +18,7 @@ function reducer(state, action) {
   switch (action.type) {
     case actionTypes.FETCH_PRODUCTS: {
       const data = action.payload;
-      return { ...state, products: data };
+      return { ...state, products: data.data };
     }
 
     default: {

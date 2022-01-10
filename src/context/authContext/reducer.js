@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useReducer } from "react";
 import { actionTypes } from "./actionTypes";
+import { closeSession } from "./localStorage";
 
 const AuthContext = createContext(null);
 
 const initialState = {
-  currentUser: null,
+  currentUserData: null,
   isSigningIn: false,
   isSigningUp: false,
   isAuth: false,
@@ -24,16 +25,23 @@ function reducer(state, action) {
       return {
         ...state,
         isSigningIn: false,
+        isSigningUp: false,
         isAuth: true,
         errorMessage: null,
-        currentUser: action.payload,
+        currentUserData: action.payload,
       };
     case actionTypes.SIGN_UP_SUCCESS:
       return {
         ...state,
+        isSigningIn: false,
         isSigningUp: false,
         errorMessage: null,
-        currentUser: action.payload,
+        isAuth: true,
+        currentUserData: {
+          email: action.payload.email,
+          details: action.payload.metadata,
+          uid: action.payload.uid,
+        },
       };
     case actionTypes.SIGN_IN_ERROR:
       return {
@@ -65,9 +73,10 @@ function reducer(state, action) {
         errorMessage: null,
       };
     case actionTypes.SIGN_OUT:
+      closeSession();
       return {
         ...state,
-        currentUser: null,
+        currentUserData: null,
         isAuth: false,
       };
     default:
@@ -79,10 +88,13 @@ export function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const value = {
     ...state,
-    signUpEmailAndPass: (userData) =>
-      dispatch({ type: actionTypes.SIGN_IN_EMAIL_AND_PASS, payload: userData }),
-    signUpSuccess: (newUser) =>
-      dispatch({ type: actionTypes.SIGN_UP_SUCCESS, payload: newUser }),
+    signUpEmailAndPass: () =>
+      dispatch({ type: actionTypes.SIGN_IN_EMAIL_AND_PASS }),
+    signUpSuccess: (firebaseRes) =>
+      dispatch({
+        type: actionTypes.SIGN_UP_SUCCESS,
+        payload: firebaseRes.user,
+      }),
     signUpError: (err) =>
       dispatch({ type: actionTypes.SIGN_UP_ERROR, payload: err }),
     signInEmailAndPass: (userData) =>
@@ -92,6 +104,8 @@ export function AuthProvider({ children }) {
     signInError: (err) =>
       dispatch({ type: actionTypes.SIGN_IN_ERROR, payload: err }),
     signOutProvider: () => dispatch({ type: actionTypes.SIGN_OUT }),
+    setUserName: (userName) =>
+      dispatch({ type: actionTypes.SET_USERNAME, payload: userName }),
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

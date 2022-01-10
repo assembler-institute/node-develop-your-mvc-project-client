@@ -1,31 +1,35 @@
 import React, { useState } from "react";
 import { signUpWithEmailAndPassword } from "../../firebase/firebase";
+import { Navigate } from "react-router-dom";
 
 import { useAuth } from "../../context/authContext/reducer";
 import { syncUserData } from "../../utils/auth-request";
+import { saveSession } from "../../context/authContext/localStorage";
 
 function FormRegister() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const { signUpEmailAndPass, signUpError, signUpSuccess, errorMessage } =
+  let { signUpEmailAndPass, signUpError, signUpSuccess, errorMessage, isAuth } =
     useAuth();
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
-      const res = await signUpWithEmailAndPassword(email, password);
-      signUpEmailAndPass(res);
+      const user = await signUpWithEmailAndPassword(email, password);
+      signUpEmailAndPass(user);
       await syncUserData(firstName, lastName);
-      signUpSuccess(res);
+      signUpSuccess(user);
+      saveSession(user);
     } catch (err) {
       signUpError(err.message);
     }
   }
   return (
     <>
+      {isAuth ? <Navigate to="/" /> : null}
       <div className="hidden sm:block" aria-hidden="true">
         <div className="py-5">
           <div className="border-t border-gray-200" />
@@ -55,7 +59,7 @@ function FormRegister() {
                       >
                         First name
                       </label>
-               {/*        <input
+                      {/*        <input
                         type="text"
                         name="first-name"
                         id="first-name"
