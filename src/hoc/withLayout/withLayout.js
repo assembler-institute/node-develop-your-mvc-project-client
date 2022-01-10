@@ -1,6 +1,7 @@
 import React from "react";
 import "./withLayout.css";
 import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
 
 function withLayout(WrappedComponent) {
   function WrapperComponent({ ...props }) {
@@ -10,6 +11,7 @@ function withLayout(WrappedComponent) {
         <main className="flex flex-wrap justify-center items-center">
           <WrappedComponent />
         </main>
+        <Footer />
       </>
     );
   }
