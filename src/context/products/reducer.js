@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer } from "react";
-import { fetchProducts } from "./actions";
+import { fetchCategory, fetchProducts } from "./actions";
 import { actionTypes } from "./types";
 
 const initValues = {
@@ -8,19 +8,23 @@ const initValues = {
   isLoading: false,
   hasError: false,
   totalPrice: 0,
+  category: null,
 };
 
 const ProductsContext = createContext(initValues);
 
 function reducer(state, action) {
-  //const { products, cartItems } = state;
-
   switch (action.type) {
     case actionTypes.FETCH_PRODUCTS: {
       const data = action.payload;
       return { ...state, products: data.data };
     }
-
+    case actionTypes.SELECT_CATEGORY: {
+      return { ...state, category: action.payload };
+    }
+    case actionTypes.FETCH_CATEGORY: {
+      return { ...state, products: action.payload };
+    }
     default: {
       return state;
     }
@@ -33,6 +37,10 @@ function ProductsProvider({ children }) {
   const value = {
     ...state,
     fetchAllProducts: () => fetchProducts(dispatch),
+    selectCategory: (category) =>
+      dispatch({ type: actionTypes.SELECT_CATEGORY, payload: category }),
+    fetchCategory: (products) =>
+      dispatch({ type: actionTypes.FETCH_CATEGORY, payload: products }),
   };
 
   return (

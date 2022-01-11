@@ -6,7 +6,7 @@ import { getProduct } from "../../utils/productData-request";
 function Product() {
   const { id } = useParams();
   const [productData, setProductData] = useState("");
-  useEffect(async () => {
+  useEffect(() => {
     (async function fetchData() {
       setProductData(await getProduct(id));
     })();
