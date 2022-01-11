@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer } from "react";
-import { fetchCategory, fetchProducts } from "./actions";
+import { fetchProducts } from "./actions";
 import { actionTypes } from "./types";
 
 const initValues = {

@@ -10,7 +10,6 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        {/* <Route path="/login" exact render={(routeProps) => <Login {...routeProps} />}/> */}
         <Route path="/signin" exact element={<Login />} />
         <Route path="/signup" exact element={<Register />} />
         <Route path="/" exact element={<GridProducts />} />
