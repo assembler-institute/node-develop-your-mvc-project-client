@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { signInWithEmailAndPassword } from "../../firebase/firebase";
 import { Navigate } from "react-router-dom";
 
@@ -7,11 +7,16 @@ import { LockClosedIcon } from "@heroicons/react/solid";
 
 import { useAuth } from "../../context/authContext/reducer";
 import { syncUserDataIn } from "../../utils/auth-request";
-import { saveSession } from "../../context/authContext/localStorage";
+import {
+  saveSession,
+  checkSession,
+  getCurrentUser,
+} from "../../context/authContext/localStorage";
 
 export default function FormLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const isLogged = checkSession();
 
   const {
     signInEmailAndPass,
@@ -35,8 +40,16 @@ export default function FormLogin() {
     }
   }
 
+  useEffect(() => {
+    if (isLogged) {
+      const currentUser = getCurrentUser();
+      signInSuccess(currentUser);
+    }
+  }, []);
+
   return (
     <>
+      {isLogged ? <Navigate to="/" /> : null}
       {isAuth ? <Navigate to="/" /> : null}
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">

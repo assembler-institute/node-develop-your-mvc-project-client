@@ -28,7 +28,8 @@ function reducer(state, action) {
         isSigningUp: false,
         isAuth: true,
         errorMessage: null,
-        currentUserData: action.payload,
+        signedUp: false,
+        currentUserData: action.payload.user,
       };
     case actionTypes.SIGN_UP_SUCCESS:
       return {
@@ -36,12 +37,7 @@ function reducer(state, action) {
         isSigningIn: false,
         isSigningUp: false,
         errorMessage: null,
-        isAuth: true,
-        currentUserData: {
-          email: action.payload.email,
-          details: action.payload.metadata,
-          uid: action.payload.uid,
-        },
+        signedUp: true,
       };
     case actionTypes.SIGN_IN_ERROR:
       return {

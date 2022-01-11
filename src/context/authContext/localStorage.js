@@ -5,7 +5,7 @@ export function saveSession(userData) {
 
   const sessionData = {
     isAuth: true,
-    userData: userData,
+    userData: userData.user,
   };
 
   localStorage.setItem("CurrentUser", JSON.stringify(sessionData));
@@ -19,3 +19,19 @@ export function closeSession() {
 
   localStorage.setItem("CurrentUser", JSON.stringify(sessionData));
 }
+
+export function checkSession() {
+  const { isAuth } = JSON.parse(localStorage.getItem("CurrentUser"));
+
+  if (isAuth) return true;
+  return false;
+}
+
+export function getCurrentUser() {
+  const { isAuth, userData } = JSON.parse(localStorage.getItem("CurrentUser"));
+
+  if (isAuth) return userData;
+  return null;
+}
+
+//TODO function saveProducts(){}

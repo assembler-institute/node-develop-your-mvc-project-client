@@ -4,13 +4,21 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/authContext/reducer";
 import { signOut } from "../../firebase/firebase";
+import {
+  checkSession,
+  closeSession,
+  getCurrentUser,
+} from "../../context/authContext/localStorage";
 
 export default function Navbar() {
   const { isAuth, currentUserData, signOutProvider } = useAuth();
+  const isLogged = checkSession();
+  const currentUser = isLogged ? getCurrentUser() : null;
 
   async function handleSignOut() {
     await signOut();
     signOutProvider();
+    closeSession();
   }
 
   return (
@@ -45,7 +53,7 @@ export default function Navbar() {
               </Link>
             </Popover.Group>
             <div className="hidden md:flex items-center justify-end md:flex-1">
-              {isAuth ? (
+              {isLogged ? (
                 <>
                   <img
                     className="inline object-cover w-12 h-12 mr-2 rounded-full"
@@ -56,7 +64,7 @@ export default function Navbar() {
                     to="/profile"
                     className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
                   >
-                    {currentUserData.name}
+                    {currentUser.name}
                   </Link>
                   <button
                     to="/signout"
