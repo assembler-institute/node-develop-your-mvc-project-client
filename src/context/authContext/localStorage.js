@@ -21,9 +21,12 @@ export function closeSession() {
 }
 
 export function checkSession() {
-  const { isAuth } = JSON.parse(localStorage.getItem("CurrentUser"));
+  const ls = JSON.parse(localStorage.getItem("CurrentUser"));
 
-  if (isAuth) return true;
+  if (ls) {
+    if (ls.isAuth) return true;
+  }
+
   return false;
 }
 
