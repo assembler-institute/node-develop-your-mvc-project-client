@@ -11,7 +11,7 @@ import {
 } from "../../context/authContext/localStorage";
 
 export default function Navbar() {
-  const { isAuth, currentUserData, signOutProvider } = useAuth();
+  const { signOutProvider } = useAuth();
   const isLogged = checkSession();
   const currentUser = isLogged ? getCurrentUser() : null;
 
