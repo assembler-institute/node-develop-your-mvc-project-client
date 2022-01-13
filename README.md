@@ -7,7 +7,10 @@ We had to develop an eCommerce with a dashboard to manage products and users
 (admin, employees or clients)
 ## Installation
 
-Clone the repository.
+Clone the repositories:
+
+- Back: https://github.com/AntonioCopete/mern-back
+- Front: https://github.com/AranBeitia/mern-front-cli
  
 Install dependencies for backend and frontend.
  ```http
