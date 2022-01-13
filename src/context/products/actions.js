@@ -65,6 +65,17 @@ export async function addProductShoppingCart(dispatch, id) {
   }
 }
 
+export async function reqCategory(category) {
+  try {
+    const products = await axios.get(
+      `http://localhost:4000/products/category/${category}`,
+    );
+    return products.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export function changeShoppingCart(dispatch, id, quantity, shoppingCart) {
   const updatedShoppingCart = shoppingCart.map((item) => {
     if (

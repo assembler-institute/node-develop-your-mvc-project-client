@@ -14,13 +14,12 @@ const initValues = {
   hasError: false,
   totalPrice: 0,
   orderCompleted: false,
+  category: null,
 };
 
 const ProductsContext = createContext(initValues);
 
 function reducer(state, action) {
-  //const { products, cartItems } = state;
-
   switch (action.type) {
     case actionTypes.FETCH_PRODUCTS: {
       const data = action.payload;
@@ -49,6 +48,12 @@ function reducer(state, action) {
     case actionTypes.RESET_ORDER: {
       return { ...state, shoppingCart: [], orderCompleted: false };
     }
+    case actionTypes.SELECT_CATEGORY: {
+      return { ...state, category: action.payload };
+    }
+    case actionTypes.FETCH_CATEGORY: {
+      return { ...state, products: action.payload };
+    }
     default: {
       return state;
     }
@@ -70,6 +75,10 @@ function ProductsProvider({ children }) {
       removeItemShoppingCart(dispatch, id, state.shoppingCart),
     orderFinished: () => dispatch({ type: actionTypes.ORDER_COMPLETED }),
     resetOrder: () => dispatch({ type: actionTypes.RESET_ORDER }),
+    selectCategory: (category) =>
+      dispatch({ type: actionTypes.SELECT_CATEGORY, payload: category }),
+    fetchCategory: (products) =>
+      dispatch({ type: actionTypes.FETCH_CATEGORY, payload: products }),
   };
 
   return (

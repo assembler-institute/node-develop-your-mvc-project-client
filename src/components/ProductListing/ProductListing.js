@@ -1,13 +1,21 @@
 import React, { useEffect } from "react";
 import { useProducts } from "../../context/products";
+import { reqCategory } from "../../context/products/actions";
 import Product from "../Product/Product";
 
 function ProductListing() {
-  const { products, fetchAllProducts } = useProducts();
+  const { products, fetchAllProducts, category, fetchCategory } = useProducts();
 
   useEffect(() => {
-    fetchAllProducts();
-  }, []);
+    (async function getProgucts() {
+      if (category) {
+        const { data } = await reqCategory(category);
+        fetchCategory(data);
+      } else {
+        fetchAllProducts();
+      }
+    })();
+  }, [category]);
 
   return (
     <>
