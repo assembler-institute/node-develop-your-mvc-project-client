@@ -12,7 +12,8 @@ function Product() {
 
   useEffect(async () => {
     (async function fetchData() {
-      setProductData(await getProduct(id));
+      const { data } = await getProduct(id);
+      setProductData(data.data);
     })();
   }, []);
 

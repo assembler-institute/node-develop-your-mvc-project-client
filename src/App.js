@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import ProductPage from "./pages/ProductPage";
 import GridProducts from "./pages/GridProducts/GridProducts";
 import Login from "./pages/Login/Login";
 
 import Register from "./pages/Register";
-import { getCurrentUser } from "./context/authContext/localStorage";
 import Dashboard from "./pages/Dashboard";
 import DashboardProducts from "./pages/DashboardProducts/DashboardProducts";
 import DashboardSingleProduct from "./pages/DashboardSingleProduct/DashboardSingleProduct";
@@ -14,7 +13,6 @@ import DashboardSingleEmployee from "./pages/DashboardSingleEmployee/DashboardSi
 
 import loadLocalStorageItems from "./hooks/useLoadLocalStorage";
 import { useProducts } from "./context/products";
-import { useEffect } from "react/cjs/react.development";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 import CheckoutCompletedPage from "./pages/CheckoutCompletedPage";
