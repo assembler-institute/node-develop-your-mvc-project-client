@@ -1,56 +1,39 @@
-// "off" or 0 - turn the rule off
-// "warn" or 1 - turn the rule on as a warning (doesn’t affect exit code)
-// "error" or 2 - turn the rule on as an error (exit code is 1 when triggered)
+const packageJson = require('./package.json')
+const devDependencies = Object.keys(packageJson.devDependencies || {})
+
 module.exports = {
-  extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:jest/recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:jsx-a11y/recommended",
-    "prettier",
-    "react-app",
-  ],
-  plugins: [
-    "html",
-    "react",
-    "jsx-a11y",
-    "markdown",
-    "react-hooks",
-    "jest",
-    "import",
-  ],
-  settings: {
-    react: {
-      version: "detect",
-    },
-  },
-  parserOptions: {
-    sourceType: "module",
-  },
   env: {
-    browser: true,
     commonjs: true,
-    es6: true,
+    es2021: true,
     node: true,
-    "jest/globals": true,
+    jest: true,
   },
+  extends: [
+    'eslint:recommended',
+    'plugin:jest/recommended',
+    'prettier',
+    'prettier/prettier',
+    'plugin:node/recommended',
+  ],
+  parser: '@babel/eslint-parser',
+  parserOptions: {
+    ecmaVersion: 12,
+    sourceType: 'module',
+    requireConfigFile: false,
+  },
+  plugins: ['jest'],
   rules: {
-    "react/prop-types": "off",
-    "react/jsx-filename-extension": "off",
-    "import/prefer-default-export": "off",
-    "prefer-destructuring": "off",
-    "object-shorthand": "off",
-    "react/jsx-props-no-spreading": "off",
-    "arrow-body-style": "off",
-    "no-underscore-dangle": "off",
-    "react/forbid-prop-types": "off",
-    "jsx-a11y/label-has-associated-control": [
-      "error",
+    'prefer-destructuring': 'off',
+    'object-shorthand': 'off',
+    'arrow-body-style': 'off',
+    'no-underscore-dangle': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'node/no-unpublished-require': [
+      'error',
       {
-        assert: "htmlFor",
+        allowModules: devDependencies,
       },
     ],
   },
-};
+}
