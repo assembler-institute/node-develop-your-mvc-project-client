@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+
 function Product({ title, price, category, image, id }) {
   return (
     <>
-      <article className="overflow-hidden rounded-lg shadow-lg">
+   
+       <article className="overflow-hidden rounded-lg shadow-lg">
         <div>
           <Link to={`/${id}`}>
             <img
@@ -45,6 +47,7 @@ function Product({ title, price, category, image, id }) {
             <i className="fa fa-heart"></i>
           </Link>
         </footer>
+     
       </article>
     </>
   );
