@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import ProductPage from "./pages/ProductPage";
 import GridProducts from "./pages/GridProducts/GridProducts";
 import Login from "./pages/Login/Login";
@@ -12,10 +12,33 @@ import DashboardSingleProduct from "./pages/DashboardSingleProduct/DashboardSing
 import DashboardEmployees from "./pages/DashboardEmployees/DashboardEmployees";
 import DashboardSingleEmployee from "./pages/DashboardSingleEmployee/DashboardSingleEmployee";
 
+import loadLocalStorageItems from "./hooks/useLoadLocalStorage";
+import { useProducts } from "./context/products";
+import { useEffect } from "react/cjs/react.development";
+import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
+import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
+import CheckoutCompletedPage from "./pages/CheckoutCompletedPage";
+import {
+  checkSession,
+  getCurrentUser,
+} from "./context/authContext/localStorage";
+import { useAuth } from "./context/authContext";
+
 function App() {
   let role = null;
-  const currentUser = getCurrentUser();
+  let localStorage = loadLocalStorageItems("ShoppingCart", []);
+  const { getLocalStorage } = useProducts();
+  const { isAuth, signInSuccess } = useAuth();
+  const isLogged = checkSession();
+  const currentUser = isLogged ? getCurrentUser() : null;
   if (currentUser) role = currentUser.roles[0];
+
+  useEffect(() => {
+    getLocalStorage(localStorage);
+    if (isLogged) {
+      signInSuccess(currentUser);
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -40,6 +63,9 @@ function App() {
           path="/dashboard_products/:productId"
           element={<DashboardSingleProduct />}
         />
+        <Route path="/shopping-cart-view" element={<ShoppingCart />} />
+        <Route path="/completed" element={<CheckoutCompletedPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
       </Routes>
     </div>
   );

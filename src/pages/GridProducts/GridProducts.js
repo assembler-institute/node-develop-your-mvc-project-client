@@ -24,7 +24,7 @@ function GridProducts() {
     <>
       <CategoryBar />
       <ProductListing />
-      <Pagination />
+{/*       <Pagination /> */}
     </>
   );
 }

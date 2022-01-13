@@ -29,7 +29,9 @@ function reducer(state, action) {
         isAuth: true,
         errorMessage: null,
         signedUp: false,
-        currentUserData: action.payload,
+        currentUserData: action.payload.user
+          ? action.payload.user
+          : action.payload,
       };
     case actionTypes.SIGN_UP_SUCCESS:
       return {

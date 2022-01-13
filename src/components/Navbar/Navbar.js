@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
-import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import { MenuIcon, XIcon, ShoppingCartIcon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/authContext/reducer";
 import { signOut } from "../../firebase/firebase";
@@ -9,9 +9,11 @@ import {
   closeSession,
   getCurrentUser,
 } from "../../context/authContext/localStorage";
+import { useProducts } from "../../context/products";
 
 export default function Navbar() {
   const { signOutProvider } = useAuth();
+  const { shoppingCart } = useProducts();
   const isLogged = checkSession();
   const currentUser = isLogged ? getCurrentUser() : null;
 
@@ -91,6 +93,13 @@ export default function Navbar() {
                 </>
               )}
             </div>
+            {shoppingCart.length !== 0 ? (
+              <div>
+                <Link to="/shopping-cart-view">
+                  <ShoppingCartIcon className="h-6 w-6 text-indigo-600"></ShoppingCartIcon>
+                </Link>
+              </div>
+            ) : null}
           </div>
         </div>
 
