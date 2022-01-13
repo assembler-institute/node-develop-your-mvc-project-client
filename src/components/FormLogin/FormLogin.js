@@ -24,6 +24,7 @@ export default function FormLogin() {
     signInSuccess,
     errorMessage,
     isAuth,
+    currentUserData,
   } = useAuth();
 
   async function handleSubmit(e) {

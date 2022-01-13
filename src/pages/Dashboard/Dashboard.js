@@ -1,15 +1,12 @@
 import React, { useEffect } from "react";
-import CategoryBar from "../../components/CategoryBar/CategoryBar";
-import Pagination from "../../components/Pagination";
-import ProductListing from "../../components/ProductListing";
 import {
   checkSession,
   getCurrentUser,
 } from "../../context/authContext/localStorage";
-import withLayout from "../../hoc/withLayout";
 import { useAuth } from "../../context/authContext/reducer";
+import withDashboardLayout from "../../hoc/withDashboardLayout/withDashboardLayout";
 
-function GridProducts() {
+function Dashboard() {
   const { signInSuccess } = useAuth();
   const isLogged = checkSession();
 
@@ -19,14 +16,11 @@ function GridProducts() {
       signInSuccess(currentUser);
     }
   }, []);
-
   return (
     <>
-      <CategoryBar />
-      <ProductListing />
-      <Pagination />
+      <h1>Dashboard</h1>
     </>
   );
 }
 
-export default withLayout(GridProducts);
+export default withDashboardLayout(Dashboard);

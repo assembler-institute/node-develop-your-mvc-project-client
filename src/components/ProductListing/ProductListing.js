@@ -7,7 +7,7 @@ function ProductListing() {
   const { products, fetchAllProducts, category, fetchCategory } = useProducts();
 
   useEffect(() => {
-    (async function getProgucts() {
+    (async function getProducts() {
       if (category) {
         const { data } = await reqCategory(category);
         fetchCategory(data);
